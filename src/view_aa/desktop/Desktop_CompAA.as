@@ -25,6 +25,9 @@ package view_aa.desktop
 		public var imgRaw:ImageAA;
 		public var isInitBlur:Boolean;
 		
+		public var prevScale:Number;
+		
+		
 		
 		public function setToRaw() : void {
 			var tween_A:ATween;

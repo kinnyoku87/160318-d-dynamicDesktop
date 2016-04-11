@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <application xmlns="http://ns.adobe.com/air/application/20.0">
-	<id>demo-dynamicDesktop</id>
-	<filename>demo-dynamicDesktop</filename>
-	<name>demo-dynamicDesktop</name>
+	<id>desktop7</id>
+	<filename>desktop7</filename>
+	<name>desktop7</name>
 	<versionNumber>1.0.0</versionNumber>
 	
 	<initialWindow>

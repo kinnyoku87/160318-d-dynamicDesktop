@@ -25,7 +25,7 @@ package view_aa.transition
 			//this.stateB.m_tipFN = this.stateA.m_tipFN;
 			
 			this.stateA.m_hotspotA.kill();
-//			this.stateA.m_hotspotB.kill();
+			this.stateA.m_hotspotB.kill();
 			//this.stateA.desk.kill();
 			
 			//TweenMachine.getInstance().stopAll();

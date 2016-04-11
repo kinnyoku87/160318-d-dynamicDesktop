@@ -3,7 +3,7 @@ package model
 	public class DesktopManager
 	{
 		
-		
+		public static var isLeft:Boolean;
 		
 		public static function getData() : Array {
 			return m_data
@@ -30,7 +30,7 @@ package model
 		}
 		
 		public static function setDesktopVoToLast(v:DesktopVo):void{
-			
+			m_data = m_rawData.concat();
 			
 			m_index = m_data.indexOf(v);
 			m_data.splice(m_index, 1);
@@ -39,24 +39,35 @@ package model
 		}
 		
 		
-		
-		
-		private static var m_data:Array = 
+		private static var m_rawData:Array =
 			[
+				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
+//				new DesktopVo("8"),
 				
-				new DesktopVo("1"),
-				new DesktopVo("2"),
-				new DesktopVo("3"),
-				new DesktopVo("4"),
-				new DesktopVo("5"),
-				new DesktopVo("6"),
 				new DesktopVo("7"),
-				new DesktopVo("8"),
-				new DesktopVo("8"),
-				new DesktopVo("8"),
-				new DesktopVo("0", true)
+				new DesktopVo("6"),
+				//new DesktopVo("5"),
+				new DesktopVo("4"),
+				new DesktopVo("3"),
+//				new DesktopVo("4"),
+//				new DesktopVo("3"),
+				new DesktopVo("2"),
+				new DesktopVo("1"),
+//				new DesktopVo("2"),
+//				new DesktopVo("1")
+//				new DesktopVo("0", true)
 				
 			];
+		
+		private static var m_data:Array = m_rawData.concat();
 		
 		{
 			//m_data.reverse();

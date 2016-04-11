@@ -1,5 +1,7 @@
 package view_aa.desktop
 {
+	import com.greensock.easing.FastEase;
+	
 	import d2armor.activity.Touch;
 	import d2armor.animate.ATween;
 	import d2armor.animate.TweenMachine;
@@ -26,10 +28,10 @@ package view_aa.desktop
 		}
 		
 		public function set value( v:Number ) : void {
-			this.setValue(v, true);
+			this.setValue(v);
 		}
 		
-		public function setValue( v:Number, hasTween:Boolean ) : void {
+		public function setValue( v:Number ) : void {
 			var i:int;
 			var ratio_A:Number;
 			var index_A:int;
@@ -43,63 +45,15 @@ package view_aa.desktop
 			var baseScale:Number;
 			var offset_A:Number;
 			
-			
 			m_currValue = v;
+
+			//trace(v, m_currValue);
+			
 			index_A = AMath.clamp(int(v), 0, m_numItems - 1);
 			
 			if(DesktopManager.index != index_A) {
+				
 				DesktopManager.index = index_A;
-				
-				//trace(index_A);
-				
-				/*if(index_A > m_numItems - 4 ){
-					startIndex = m_numItems - 4;
-				}
-				else {
-					startIndex = index_A;
-				}
-				
-				while(i<m_numItems) {
-					state_A = m_viewList[i];
-					if(i <= startIndex) {
-						//TweenMachine.to(state_A.getFusion(), ViewConfig.DURA1, {x:i*ITEM_GAP_X}).easing = Quad.easeOut;
-						if(i == 0) {
-							currX = 0;
-						}
-						else {
-							currX = prevX + ITEM_GAP_X;
-						}
-					}
-					else if(i == index_A + 1) {
-						//TweenMachine.to(state_A.getFusion(), ViewConfig.DURA1, {x:i*ITEM_GAP_X + 400}).easing = Quad.easeOut;
-						if(i == 0) {
-							currX = 0;
-						}
-						else {
-							currX = prevX + ITEM_GAP_X + 450;
-						}
-					}
-					else if(i < startIndex + 1 + 4){
-//						TweenMachine.to(state_A.getFusion(), ViewConfig.DURA1, {x:i*ITEM_GAP_X + 400 + (i-index_A)*100}).easing = Quad.easeOut;
-						currX = prevX + ITEM_GAP_X + 160;
-					}
-//					else if(index_A == m_numItems - 1){
-//						currX = prevX + ITEM_GAP_X + 150;
-//					}
-					else {
-						//TweenMachine.to(state_A.getFusion(), ViewConfig.DURA1, {x:i*ITEM_GAP_X + 400}).easing = Quad.easeOut;
-						currX = prevX + ITEM_GAP_X + 0;
-					}
-					
-					if(hasTween){
-						TweenMachine.to(state_A.getFusion(), ViewConfig.DURA1, {x:currX}).easing = Quad.easeOut;
-					}
-					else {
-						state_A.getFusion().x = currX;
-					}
-					prevX = currX;
-					i++;
-				}*/
 			}
 			
 			
@@ -112,8 +66,11 @@ package view_aa.desktop
 			i = 0;
 			while(i<m_numItems){
 				state_A = m_viewList[i];
+				state_A.prevScale = state_A.getFusion().scaleX;
 				scale_A = (baseScale + i * 0.03) * BASE_ITEM_SCALE;
 				state_A.getFusion().scaleX = state_A.getFusion().scaleY = scale_A;
+				
+//				TweenMachine.to(state_A.getFusion(), , {scaleX:scale_A, scaleY:scale_A});
 				
 //				state_A.getFusion().x = Math.abs(i - m_currValue)*(i - m_currValue) * ITEM_GAP_X;
 				
@@ -122,40 +79,50 @@ package view_aa.desktop
 				
 				
 				// 当前选中item
-				if(offset_A < -2){
-//					ratio_A = AMath.calcRatio(offset_A, -1.5, -0.5);
-					currX =  -2000;
+//				if(offset_A < -3){
+//					currX =  -2000;
+//				}
+				if(offset_A < -3 || offset_A > 2){
+					state_A.getFusion().visible = false;
 				}
-				else if(offset_A >= -2 && offset_A < -1){
-					ratio_A = AMath.calcRatio(offset_A, -2, -1);
-					currX = ratio_A * 50 + 100;
-				}
-				else if(offset_A >= -1 && offset_A <= 0){
-					ratio_A = AMath.calcRatio(offset_A, -1, 0);
-					currX = ratio_A * 200 + 150;
-					//trace(ratio_A);
-				}
-				else if(offset_A > 0 && offset_A <= 1){
-					ratio_A = AMath.calcRatio(offset_A, 0, 1);
-					currX = ratio_A * 700 + 350;
-				}
-				else if(offset_A > 1 && offset_A <= 2){
-					ratio_A = AMath.calcRatio(offset_A, 1, 2);
-					currX = ratio_A * 500 +  1050;
-				}
-				else if(offset_A > 2){
-					currX = 2000;
+				else {
+					state_A.getFusion().visible = true;
+					if(offset_A >= -3 && offset_A < -2){
+						ratio_A = AMath.calcRatio(offset_A, -3, -2);
+						currX = ratio_A * 50 + 50;
+					}
+					else if(offset_A >= -2 && offset_A < -1){
+						ratio_A = AMath.calcRatio(offset_A, -2, -1);
+						currX = ratio_A * 50 + 100;
+					}
+					else if(offset_A >= -1 && offset_A <= 0){
+						ratio_A = AMath.calcRatio(offset_A, -1, 0);
+						currX = ratio_A * 200 + 150;
+						//trace(ratio_A);
+					}
+					else if(offset_A > 0 && offset_A <= 1){
+						ratio_A = AMath.calcRatio(offset_A, 0, 1);
+						currX = ratio_A * 750 + 350;
+					}
+					else if(offset_A > 1 && offset_A <= 2){
+						ratio_A = AMath.calcRatio(offset_A, 1, 2);
+						currX = ratio_A * 500 +  1100;
+					}
+					state_A.getFusion().x = DesktopManager.isLeft ? currX + 220 : -currX + 620 + 220;
+					
 				}
 				
+//				else if(offset_A > 2){
+//					currX = 2000;
+//				}
+				
 				//prevX = currX;
-				state_A.getFusion().x = currX ;
+//				state_A.getFusion().x = DesktopManager.isLeft ? currX + 220 : -currX + 620 + 220;
 				
 				i++;
 			}
 			
 			this.desktopImg = (m_viewList[index_A] as Desktop_CompAA);
-			
-//			this.desktopImg = (m_viewList[index_A] as Desktop_CompAA);
 			
 //			ratio_A = (m_currValue / (m_numItems - 1));
 //			ratio_A = AMath.clamp(ratio_A, 0, 1);
@@ -186,7 +153,6 @@ package view_aa.desktop
 			var prevValue:Number;
 			var stateFN:StateFusionAA;
 			var state_A:Desktop_CompAA;
-			var prevX:Number;
 			
 			
 			m_bg = new ImageAA;
@@ -200,18 +166,11 @@ package view_aa.desktop
 				this.getFusion().addNode(m_fusion);
 			}
 			
-			prevX = this.desktopImg.getFusion().x;
-			
-			while(i<m_numItems){
-
-				state_A = m_viewList[i];
-				state_A.getFusion().y = 0;
-				i++;
-			}
-			
 			m_totalW = ITEM_GAP_X * m_numItems - this.getRoot().getWindow().rootWidth + 300;
 			
-			TweenMachine.to(m_fusion, 0.15, {x:m_startX});
+//			TweenMachine.to(m_fusion, 0.15, {x:m_startX});
+			TweenMachine.to(m_fusion, 0.15, {x:0});
+			
 			m_fusion.y = (this.getRoot().getWindow().rootHeight) / 2;
 			
 			
@@ -222,8 +181,16 @@ package view_aa.desktop
 			DesktopManager.index = -1;
 			this.doUpdateTouch(false);
 			
-			tween_A = TweenMachine.from(stateFN, ViewConfig.DURA1, {scaleX:1.0,scaleY:1.0});
-			tween_A.easing = Quad.easeOut;
+			while(i<m_numItems){
+				state_A = m_viewList[i];
+				state_A.getFusion().y = 0;
+				
+				tween_A = TweenMachine.from(state_A.getFusion(), ViewConfig.DURA4, {scaleX:state_A.prevScale, scaleY:state_A.prevScale});
+				i++;
+			}
+			
+//			tween_A = TweenMachine.from(stateFN, ViewConfig.DURA1, {scaleX:1.0,scaleY:1.0});
+			//tween_A.easing = Quad.easeOut;
 				
 			//TweenMachine.from(this, ViewConfig.DURA1, {value:prevValue}, ViewConfig.DURA1);
 			
@@ -260,19 +227,44 @@ package view_aa.desktop
 		}
 		
 		
+		private const START_X:Number = 70;
+		
 		private function doUpdateTouch( hasTween:Boolean ): void{
 			var index_A:int;
 			var value_A:Number;
+			var ratio_A:Number;
 			
-			value_A = (1080 - m_touchA.rootX) / (1080 / (m_numItems));
+//			if(DesktopManager.isLeft) {
+//				value_A = (1080 - m_touchA.rootX) / (1080 / (m_numItems));
+//			}
+//			else {
+//				value_A = (m_touchA.rootX) / (1080 / (m_numItems));
+//			}
 			
-			//TweenMachine.getInstance().stopTarget(desktopImg);
-			
-			if(!hasTween){
-				this.setValue(value_A, false);
+			if(DesktopManager.isLeft) {
+				ratio_A = AMath.calcRatio(m_touchA.rootX, 1080 - START_X, START_X);
+				value_A = ratio_A * m_numItems;
 			}
 			else {
-				TweenMachine.to(this, 0.15, {value:value_A});
+				ratio_A = AMath.calcRatio(m_touchA.rootX, START_X, 1080 - START_X);
+				value_A = ratio_A * m_numItems;
+			}
+			
+			if(!hasTween){
+				this.setValue(value_A);
+			}
+			else {
+				trace(value_A);
+				
+				if(value_A < 0){
+					value_A = value_A * 0.15;
+				}
+				else if(value_A > m_numItems) {
+					value_A = m_numItems + (value_A - m_numItems) * 0.35;
+				}
+				
+				
+				TweenMachine.to(this, ViewConfig.DURA0, {value:value_A});
 			}
 			
 		}

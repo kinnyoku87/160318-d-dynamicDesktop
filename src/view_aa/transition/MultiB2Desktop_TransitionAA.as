@@ -46,11 +46,14 @@ package view_aa.transition
 			
 			TweenMachine.getInstance().stopAll(false,true);
 			
+			this.stateA.getRoot().getWindow().getTouch().touchEnabled = false;
+			
 			TweenMachine.to(this.stateB.m_fusion, ViewConfig.DURA1, {x:0,y:0});
 			tween_A = TweenMachine.to(this.stateB.desktopImg.getFusion(), ViewConfig.DURA1, {scaleX:1.0,scaleY:1.0,x:1080/2,y:1920/2});
 			
 			tween_A.onComplete = function() : void {
 				stateA.m_bg.kill();
+				stateA.getRoot().getWindow().getTouch().touchEnabled = true;
 			}
 			
 			this.stateB.desktopImg.setToRaw();

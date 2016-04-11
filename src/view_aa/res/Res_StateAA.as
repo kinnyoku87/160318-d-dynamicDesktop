@@ -23,13 +23,13 @@ public class Res_StateAA extends StateAA {
 		
 		AY = new <String>
 			[
-				"common/img/0.png",
+//				"common/img/0.png",
 				
 				"common/img/blur1.png",
 				"common/img/blur2.png",
 				"common/img/blur3.png",
 				"common/img/blur4.png",
-				"common/img/blur5.png",
+				//"common/img/blur5.png",
 				"common/img/blur6.png",
 				"common/img/blur7.png",
 				"common/img/blur8.png",
@@ -40,7 +40,7 @@ public class Res_StateAA extends StateAA {
 				"common/img/raw2.png",
 				"common/img/raw3.png",
 				"common/img/raw4.png",
-				"common/img/raw5.png",
+				///"common/img/raw5.png",
 				"common/img/raw6.png",
 				"common/img/raw7.png",
 				"common/img/raw8.png",

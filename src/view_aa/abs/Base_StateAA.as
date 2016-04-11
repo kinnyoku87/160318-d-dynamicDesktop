@@ -46,7 +46,7 @@ package view_aa.abs
 		
 		
 		public var m_hotspotA:NodeAA;
-//		public var m_hotspotB:NodeAA;
+		public var m_hotspotB:NodeAA;
 		
 		
 		
@@ -56,9 +56,9 @@ package view_aa.abs
 			m_hotspotA = this.toHotspot("A");
 			this.getFusion().addNode(m_hotspotA);
 			
-//			m_hotspotB = this.toHotspot("B");
-//			this.getFusion().addNode(m_hotspotB);
-//			m_hotspotB.x = this.getRoot().getWindow().rootWidth - HOTSPOT_W;
+			m_hotspotB = this.toHotspot("B");
+			this.getFusion().addNode(m_hotspotB);
+			m_hotspotB.x = this.getRoot().getWindow().rootWidth - HOTSPOT_W;
 		}
 		
 		
